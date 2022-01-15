@@ -201,8 +201,8 @@ def main():
 
     args = p.parse_args()
 
-    content_img = load_image(args.content, args.proof)
-    style_imgs = [load_image(img, args.proof) for img in args.styles]
+    content_img = load_image(args.content.replace('f',''), args.proof)
+    style_imgs = [load_image(img.replace('f',''), args.proof) for img in args.styles]
 
     image_type = 'pil'
     if Path(args.output).suffix.lower() in {'.tif', '.tiff'}:
