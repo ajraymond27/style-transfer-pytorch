@@ -203,8 +203,8 @@ def main():
 
 ###
 # Create for loop to load each image into an array
-    content_path = args.content.replace('f','')
     content_images = []
+    content_path = args.content.replace('f','')
     image_paths = sorted(os.listdir(content_path))
     print(image_paths[1:3])
 
@@ -269,6 +269,7 @@ def main():
             webbrowser.open(url)
 ###
 # Start style for loop here
+    count = 0
     for content_image in content_images:
         defaults = StyleTransfer.stylize.__kwdefaults__
         st_kwargs = {k: v for k, v in args.__dict__.items() if k in defaults}
@@ -278,11 +279,11 @@ def main():
             pass
 
         output_image = st.get_image(image_type)
-        output_path = args.output.replace('f','')
         if output_image is not None:
-            save_image(output_path, output_image)
+            save_image(f'img_{count:04}', output_image)
         with open('trace.json', 'w') as fp:
             json.dump(callback.get_trace(), fp, indent=4)
+        count += 1
 # Include all of this
 ###
 
