@@ -284,7 +284,7 @@ def main():
             pass
 
         output_image = st.get_image(image_type)
-        output_path = args.content.replace('f','')
+        output_path = args.output.replace('f','')
         styled_image = f'{output_path}/img_{count:04}.png'
         if output_image is not None:
             save_image(styled_image, output_image)
