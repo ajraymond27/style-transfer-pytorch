@@ -286,6 +286,7 @@ def main():
         output_image = st.get_image(image_type)
         output_path = args.output.replace('f','')
         styled_image = f'{output_path}/img_{count:04}.png'
+        styled_image = styled_image.replace('f','')
         if output_image is not None:
             save_image(styled_image, output_image)
         with open('trace.json', 'w') as fp:
