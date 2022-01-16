@@ -9,6 +9,7 @@ from pathlib import Path
 import platform
 import sys
 import webbrowser
+import os
 
 import numpy as np
 from PIL import Image, ImageCms
@@ -151,8 +152,11 @@ def main():
         defaults = StyleTransfer.stylize.__kwdefaults__
         default_types = StyleTransfer.stylize.__annotations__
         return {'default': defaults[arg], 'type': default_types[arg]}
-
+###
+# Feed the content folder to this argument 
     p.add_argument('content', type=str, help='the content image')
+### 
+
     p.add_argument('styles', type=str, nargs='+', metavar='style', help='the style images')
     p.add_argument('--output', '-o', type=str, default='out.png',
                    help='the output image')
@@ -201,8 +205,11 @@ def main():
 
     args = p.parse_args()
 
+###
+# Create for loop to load each image into an array
     content_img = load_image(args.content.replace('f',''), args.proof)
     style_imgs = [load_image(img.replace('f',''), args.proof) for img in args.styles]
+###
 
     image_type = 'pil'
     if Path(args.output).suffix.lower() in {'.tif', '.tiff'}:
@@ -228,9 +235,13 @@ def main():
             print(f'GPU {i} RAM:', round(props.total_memory / 1024 / 1024), 'MB')
 
     end_scale = int(args.end_scale.rstrip('+'))
+
+    ###
+    # Put this in style for loop
     if args.end_scale.endswith('+'):
         end_scale = get_safe_scale(*content_img.size, end_scale)
     args.end_scale = end_scale
+    ###
 
     web_interface = None
     if args.web:
@@ -252,7 +263,8 @@ def main():
             webbrowser.get(args.browser).open(url)
         elif args.browser is None:
             webbrowser.open(url)
-
+###
+# Start style for loop here
     defaults = StyleTransfer.stylize.__kwdefaults__
     st_kwargs = {k: v for k, v in args.__dict__.items() if k in defaults}
     try:
@@ -265,7 +277,8 @@ def main():
         save_image(args.output, output_image)
     with open('trace.json', 'w') as fp:
         json.dump(callback.get_trace(), fp, indent=4)
-
+# Include all of this
+###
 
 if __name__ == '__main__':
     main()
