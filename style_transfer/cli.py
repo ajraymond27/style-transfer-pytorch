@@ -10,7 +10,6 @@ import platform
 import sys
 import webbrowser
 import os
-
 import numpy as np
 from PIL import Image, ImageCms
 from tifffile import TIFF, TiffWriter
@@ -152,11 +151,8 @@ def main():
         defaults = StyleTransfer.stylize.__kwdefaults__
         default_types = StyleTransfer.stylize.__annotations__
         return {'default': defaults[arg], 'type': default_types[arg]}
-###
-# Feed the content folder to this argument 
-    p.add_argument('content', type=str, help='the content image')
-### 
 
+    p.add_argument('content', type=str, help='the content image')
     p.add_argument('styles', type=str, nargs='+', metavar='style', help='the style images')
     p.add_argument('--output', '-o', type=str, default='out.png',
                    help='the output image')
@@ -207,7 +203,6 @@ def main():
 
 ###
 # Create for loop to load each image into an array
-    count = 0
     content_path = args.content.replace('f','')
     content_images = []
     image_paths = sorted(os.listdir(content_path))
