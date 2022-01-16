@@ -216,8 +216,7 @@ def main():
     for image_path in image_paths:
         img = load_image(image_path, args.proof)
         content_images.append(img)
-        print("Loaded {} images".format(len(content_images)))
-
+    print("Loaded {} images".format(len(content_images)))
     style_imgs = [load_image(img.replace('f',''), args.proof) for img in args.styles]
 ###
 
