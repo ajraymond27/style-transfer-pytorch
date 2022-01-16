@@ -271,6 +271,7 @@ def main():
 # Start style for loop here
     count = 0
     for content_image in content_images:
+        os.chdir(content_path)
         defaults = StyleTransfer.stylize.__kwdefaults__
         st_kwargs = {k: v for k, v in args.__dict__.items() if k in defaults}
         try:
@@ -280,7 +281,9 @@ def main():
 
         output_image = st.get_image(image_type)
         if output_image is not None:
-            save_image(f'img_{count:04}', output_image)
+            os.chdir('/content/aj/output')
+            save_image(args.output, output_image)
+            os.renames('/content/aj/output/out.png', f'/content/aj/output/img_{count:04}.png')
         with open('trace.json', 'w') as fp:
             json.dump(callback.get_trace(), fp, indent=4)
         count += 1
