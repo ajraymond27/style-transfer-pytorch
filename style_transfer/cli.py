@@ -269,8 +269,11 @@ def main():
             webbrowser.open(url)
 ###
 # Start style for loop here
+    n = 30 # I want to iterate over every third element
+    i = 1
     count = 0
     for content_image in content_images:
+      if i % n == 0:
         os.chdir('/content/aj/content')
         defaults = StyleTransfer.stylize.__kwdefaults__
         st_kwargs = {k: v for k, v in args.__dict__.items() if k in defaults}
@@ -286,7 +289,10 @@ def main():
             os.renames('/content/aj/output/out.png', f'/content/aj/output/img_{count:04}.png')
         with open('trace.json', 'w') as fp:
             json.dump(callback.get_trace(), fp, indent=4)
-        count += 1
+        count += 30
+      else:
+        pass
+      i += 1
 # Include all of this
 ###
 
