@@ -271,7 +271,7 @@ def main():
 # Start style for loop here
     count = 0
     for content_image in content_images:
-        os.chdir(content_path)
+        os.chdir('/content/aj/content')
         defaults = StyleTransfer.stylize.__kwdefaults__
         st_kwargs = {k: v for k, v in args.__dict__.items() if k in defaults}
         try:
